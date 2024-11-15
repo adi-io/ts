@@ -59,14 +59,6 @@ export default function AppAppBar(props) {
                 <Sitemark />
               </Button>
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                <Button
-                  variant="text"
-                  color="info"
-                  size="small"
-                  href="/contact"
-                >
-                  Contact us
-                </Button>
                 {/* <Button variant="text" color="info" size="small" href="/test">
                   Test
                 </Button>
@@ -100,14 +92,6 @@ export default function AppAppBar(props) {
                 alignItems: "center",
               }}
             >
-              <Button
-                color="primary"
-                variant="text"
-                size="small"
-                href="/sign-in"
-              >
-                Sign in
-              </Button>
               <Button
                 title="Available soon"
                 color="primary"

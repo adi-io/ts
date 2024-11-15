@@ -1,0 +1,1003 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+import { useState } from "react";
+import "./index.css";
+import { ContactForm } from "./contact_us";
+import { Pd } from "./payments_dashboard";
+import { Dashboard } from "./dashboard";
+import { Navbar } from "./navbar";
+import { ProfilePage } from "./profile_page";
+
+function App() {
+  const [currentPage, setCurrentPage] = useState("dashboard");
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case "dashboard":
+        return <Dashboard />;
+      case "payments":
+        return <Pd />;
+      case "contact":
+        return <ContactForm />;
+      case "profile":
+        return <ProfilePage />;
+      default:
+        return <Dashboard />;
+    }
+  };
+
+  return (
+    <>
+      <Navbar onNavigate={setCurrentPage} />
+      {renderPage()}
+    </>
+  );
+}
+
+export default App;
+import { render, screen } from '@testing-library/react';
+import App from './App';
+
+test('renders learn react link', () => {
+  render(<App />);
+  const linkElement = screen.getByText(/learn react/i);
+  expect(linkElement).toBeInTheDocument();
+});
+"use client";
+
+import { useState } from "react";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { Field, Label, Switch } from "@headlessui/react";
+
+export function ContactForm() {
+  const [agreed, setAgreed] = useState(false);
+
+  return (
+    <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
+      >
+        <div
+          style={{
+            clipPath:
+              "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
+          }}
+          className="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]"
+        />
+      </div>
+      <div className="mx-auto max-w-2xl text-center">
+        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          Contact Us
+        </h2>
+        <p className="mt-2 text-lg leading-8 text-gray-600">
+          We'd Love to Hear From You
+        </p>
+      </div>
+      <form
+        action="https://swayhire.com/tcontact"
+        method="POST"
+        className="mx-auto mt-16 max-w-xl sm:mt-20"
+      >
+        <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+          <div>
+            <label
+              htmlFor="first-name"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              First name
+            </label>
+            <div className="mt-2.5">
+              <input
+                id="first-name"
+                name="first-name"
+                type="text"
+                autoComplete="given-name"
+                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+          <div>
+            <label
+              htmlFor="last-name"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Last name
+            </label>
+            <div className="mt-2.5">
+              <input
+                id="last-name"
+                name="last-name"
+                type="text"
+                autoComplete="family-name"
+                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="company"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Company
+            </label>
+            <div className="mt-2.5">
+              <input
+                id="company"
+                name="company"
+                type="text"
+                autoComplete="organization"
+                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="email"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Email
+            </label>
+            <div className="mt-2.5">
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="phone-number"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Phone number
+            </label>
+            <div className="relative mt-2.5">
+              <div className="absolute inset-y-0 left-0 flex items-center">
+                <label htmlFor="country" className="sr-only">
+                  Country
+                </label>
+                <select
+                  id="country"
+                  name="country"
+                  className="h-full rounded-md border-0 bg-transparent bg-none py-0 pl-4 pr-9 text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                >
+                  <option>CZ</option>
+                  <option>SK</option>
+                  <option>PL</option>
+                  <option>HU</option>
+                  <option>DE</option>
+                  <option>NL</option>
+                  <option>US</option>
+                </select>
+                <ChevronDownIcon
+                  aria-hidden="true"
+                  className="pointer-events-none absolute right-3 top-0 h-full w-5 text-gray-400"
+                />
+              </div>
+              <input
+                id="phone-number"
+                name="phone-number"
+                type="tel"
+                autoComplete="tel"
+                className="block w-full rounded-md border-0 px-3.5 py-2 pl-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="message"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Message
+            </label>
+            <div className="mt-2.5">
+              <textarea
+                id="message"
+                name="message"
+                rows={4}
+                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                defaultValue={""}
+              />
+            </div>
+          </div>
+          <Field className="flex gap-x-4 sm:col-span-2">
+            <div className="flex h-6 items-center">
+              <Switch
+                checked={agreed}
+                onChange={setAgreed}
+                className="group flex w-8 flex-none cursor-pointer rounded-full bg-gray-200 p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 data-[checked]:bg-indigo-600"
+              >
+                <span className="sr-only">Agree to policies</span>
+                <span
+                  aria-hidden="true"
+                  className="h-4 w-4 transform rounded-full bg-white shadow-sm ring-1 ring-gray-900/5 transition duration-200 ease-in-out group-data-[checked]:translate-x-3.5"
+                />
+              </Switch>
+            </div>
+            <Label className="text-sm leading-6 text-gray-600">
+              By selecting this, you agree to our{" "}
+              <a
+                href="https://swayhire.com/privacy-policy"
+                className="font-semibold text-indigo-600"
+              >
+                privacy&nbsp;policy
+              </a>
+              .
+            </Label>
+          </Field>
+        </div>
+        <div className="mt-10">
+          <button
+            type="submit"
+            className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            Let's talk
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+}
+const posts = [
+  {
+    id: 1,
+    title: "Invoice Overview",
+    href: "https://swayhire.com/faktury",
+    imageUrl:
+      "https://routable.wpenginepowered.com/wp-content/uploads/2024/07/Invoice-Capture-Accordion.svg",
+  },
+  {
+    id: 2,
+    title: "Pay Invoices",
+    href: "https://swayhire.com/faktury-placeni",
+    imageUrl:
+      "https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80",
+  },
+  {
+    id: 3,
+    title: "Export Invoices",
+    href: "#",
+    imageUrl:
+      "https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80",
+  },
+];
+
+export function Dashboard() {
+  return (
+    <div className="bg-white py-24 sm:py-32">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            Welcome
+          </h2>
+          <p className="mt-2 text-lg leading-8 text-gray-600">{}</p>
+        </div>
+        <div className="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+          {posts.map((post) => (
+            <article
+              key={post.id}
+              className="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80"
+            >
+              <img
+                alt=""
+                src={post.imageUrl}
+                className="absolute inset-0 -z-10 h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40" />
+              <div className="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
+
+              <h3 className="mt-3 text-lg font-semibold leading-6 text-white">
+                <a href={post.href}>
+                  <span className="absolute inset-0" />
+                  {post.title}
+                </a>
+              </h3>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+} from "@headlessui/react";
+import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { PlusIcon } from "@heroicons/react/20/solid";
+
+export function Navbar() {
+  return (
+    <Disclosure as="nav" className="bg-white shadow">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 justify-between">
+          <div className="flex">
+            <div className="-ml-2 mr-2 flex items-center md:hidden">
+              {/* Mobile menu button */}
+              <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                <span className="absolute -inset-0.5" />
+                <span className="sr-only">Open main menu</span>
+                <Bars3Icon
+                  aria-hidden="true"
+                  className="block h-6 w-6 group-data-[open]:hidden"
+                />
+                <XMarkIcon
+                  aria-hidden="true"
+                  className="hidden h-6 w-6 group-data-[open]:block"
+                />
+              </DisclosureButton>
+            </div>
+            <div className="flex flex-shrink-0 items-center">
+              <img
+                alt="SwayHire"
+                src="https://swayhire.com/static/sh_ico2.svg?color=indigo&shade=600"
+                className="h-8 w-auto"
+              />
+            </div>
+            <div className="hidden md:ml-6 md:flex md:space-x-8">
+              {/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
+              <a
+                href="https://swayhire.com/dashboard"
+                className="inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900"
+              >
+                Dashboard
+              </a>
+              <a
+                href="https://swayhire.com/faktury"
+                className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+              >
+                Invoices
+              </a>
+              <a
+                href="https://swayhire.com/faktury-placeni"
+                className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+              >
+                Payments
+              </a>
+              <a
+                href="https://swayhire.com/export"
+                className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+              >
+                Exports
+              </a>
+            </div>
+          </div>
+          <div className="flex items-center">
+            <div className="flex-shrink-0">
+              <button
+                type="button"
+                className="relative inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                <PlusIcon aria-hidden="true" className="-ml-0.5 h-5 w-5" />
+                Upload Invoice
+              </button>
+            </div>
+            <div className="hidden md:ml-4 md:flex md:flex-shrink-0 md:items-center">
+              <button
+                type="button"
+                className="relative rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              >
+                <span className="absolute -inset-1.5" />
+                <span className="sr-only">View notifications</span>
+                <BellIcon aria-hidden="true" className="h-6 w-6" />
+              </button>
+
+              {/* Profile dropdown */}
+              <Menu as="div" className="relative ml-3">
+                <div>
+                  <MenuButton className="relative flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    <span className="absolute -inset-1.5" />
+                    <span className="sr-only">Open user menu</span>
+                    <img
+                      alt=""
+                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                      className="h-8 w-8 rounded-full"
+                    />
+                  </MenuButton>
+                </div>
+                <MenuItems
+                  transition
+                  className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+                >
+                  <MenuItem>
+                    <a
+                      href="https://swayhire.com/profile"
+                      className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
+                    >
+                      Your Profile
+                    </a>
+                  </MenuItem>
+                  <MenuItem>
+                    <a
+                      href="https://swayhire.com/logout"
+                      className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
+                    >
+                      Sign out
+                    </a>
+                  </MenuItem>
+                </MenuItems>
+              </Menu>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <DisclosurePanel className="md:hidden">
+        <div className="space-y-1 pb-3 pt-2">
+          {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
+
+          <DisclosureButton
+            as="a"
+            href="https://swayhire.com/dashboard"
+            className="block border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700 sm:pl-5 sm:pr-6"
+          >
+            Dashboard
+          </DisclosureButton>
+        </div>
+        <div className="border-t border-gray-200 pb-3 pt-4">
+          <div className="flex items-center px-4 sm:px-6">
+            <div className="flex-shrink-0">
+              <img
+                alt=""
+                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                className="h-10 w-10 rounded-full"
+              />
+            </div>
+            <button
+              type="button"
+              className="relative ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            >
+              <span className="absolute -inset-1.5" />
+              <span className="sr-only">View notifications</span>
+              <BellIcon aria-hidden="true" className="h-6 w-6" />
+            </button>
+          </div>
+          <div className="mt-3 space-y-1">
+            <DisclosureButton
+              as="a"
+              href="https://swayhire.com/profile"
+              className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 sm:px-6"
+            >
+              Your Profile
+            </DisclosureButton>
+            <DisclosureButton
+              as="a"
+              href="https://swayhire.com/logout"
+              className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 sm:px-6"
+            >
+              Sign out
+            </DisclosureButton>
+          </div>
+        </div>
+      </DisclosurePanel>
+    </Disclosure>
+  );
+}
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+
+export function PaymentsDashboard() {
+  const [documents, setDocuments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchDocuments = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get("http://app.swayhire.com:4242/bills");
+        setDocuments(response.data);
+        setLoading(false);
+      } catch (err) {
+        setError("Failed to fetch payments data");
+        setLoading(false);
+      }
+    };
+
+    fetchDocuments();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+
+  return (
+    <div className="bg-white shadow rounded-lg overflow-hidden">
+      <div className="px-4 py-5 sm:px-6">
+        <h3 className="text-lg leading-6 font-medium text-gray-900">
+          Schválené faktury
+        </h3>
+        <p className="mt-1 max-w-2xl text-sm text-gray-500">
+          Uhraďte faktury kliknutím na řádek.
+        </p>
+      </div>
+      <div className="border-t border-gray-200">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-800">
+            <tr>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+              >
+                <input
+                  type="checkbox"
+                  className="form-checkbox h-4 w-4 text-indigo-600"
+                />
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+              >
+                Položka
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+              >
+                Suma
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+              >
+                Status
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+              >
+                Portfolio
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+              >
+                Dat. Splatnosti
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+              >
+                Historie
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {documents.map((doc) => (
+              <tr key={doc.document_name} className="hover:bg-gray-50">
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <input
+                    type="checkbox"
+                    className="form-checkbox h-4 w-4 text-indigo-600"
+                  />
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="flex items-center">
+                    <div className="flex-shrink-0 h-10 w-10">
+                      <img
+                        className="h-10 w-10"
+                        src="/icons/document-icon.svg"
+                        alt=""
+                      />
+                    </div>
+                    <div className="ml-4">
+                      <div className="text-sm font-medium text-gray-900">
+                        {doc.document_name}
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm text-gray-900">
+                    {doc.currency_code} {doc.tax_inclusive_amount}
+                  </div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                    Ověřeno
+                  </span>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  1/5
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {doc.due_date}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <button className="text-indigo-600 hover:text-indigo-900">
+                    Historie
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="bg-gray-100 px-4 py-3 border-t border-gray-200 sm:px-6">
+        <div className="flex justify-between items-center">
+          <div className="text-sm text-gray-700">
+            Showing <span className="font-medium">12</span> results
+          </div>
+          <div>
+            <nav
+              className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
+              aria-label="Pagination"
+            >
+              <a
+                href="#"
+                className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+              >
+                Prev
+              </a>
+              <a
+                href="#"
+                className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+              >
+                Next
+              </a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+import { PaymentsDashboard } from "./payments";
+
+export function Pd() {
+  return (
+    <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
+      <div className="px-4 py-5 sm:px-6">
+        {/* Content goes here */}
+        {/* We use less vertical padding on card headers on desktop than on body sections */}
+      </div>
+      <div className="px-4 py-5 sm:p-6">
+        <PaymentsDashboard />
+      </div>
+    </div>
+  );
+}
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import ReactHover, { Trigger, Hover } from "react-hover";
+
+const hoverOptions = {
+  followCursor: false,
+  shiftX: 20,
+  shiftY: 0,
+};
+
+const HoverContent = ({ imageUrl }) => (
+  <div
+    className="hover-content"
+    style={{
+      backgroundColor: "white",
+      padding: "10px",
+      border: "1px solid #ccc",
+      borderRadius: "4px",
+    }}
+  >
+    <img
+      src={imageUrl}
+      alt="Document preview"
+      style={{ width: "600px", height: "auto" }}
+    />
+  </div>
+);
+
+export function PaymentsDashboard() {
+  const [documents, setDocuments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchDocuments = async () => {
+      try {
+        setLoading(true);
+        const userResponse = await axios.get(
+          "http://app.swayhire.com:4242/get_user",
+        );
+        const user_id = userResponse.data.user_id;
+        console.log(user_id);
+        const response = await axios.get("http://app.swayhire.com:4242/bills");
+        setDocuments(response.data);
+        setLoading(false);
+      } catch (err) {
+        setError("Failed to fetch payments data");
+        setLoading(false);
+      }
+    };
+
+    fetchDocuments();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+
+  return (
+    <div className="px-4 sm:px-6 lg:px-8">
+      <div className="mt-8 flow-root">
+        <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+            <table className="min-w-full divide-y divide-gray-300">
+              <thead>
+                <tr>
+                  <th
+                    scope="col"
+                    className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
+                  >
+                    Invoice
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                  >
+                    Bank Details
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                  >
+                    Amount
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                  >
+                    Pre-paid
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                  >
+                    Due Amount
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                  >
+                    Due Date
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                  >
+                    Status
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
+                  >
+                    Payments
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200 bg-white">
+                {documents.map((doc) => (
+                  <tr key={doc.document_name}>
+                    <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
+                      <div className="flex items-center">
+                        <div className="h-11 w-11 flex-shrink-0">
+                          <img
+                            src={doc.image}
+                            alt=""
+                            className="h-11 w-11 rounded-full"
+                          />
+                        </div>
+                        <div className="ml-4">
+                          <div className="font-medium text-gray-900">
+                            {doc.beneficiary_name}
+                          </div>
+                          <ReactHover options={hoverOptions}>
+                            <Trigger type="trigger">
+                              <div className="mt-1 text-gray-500">
+                                {doc.document_name}
+                              </div>
+                            </Trigger>
+                            <Hover type="hover">
+                              <HoverContent
+                                imageUrl={
+                                  doc.preview_image_url ||
+                                  `https://via.placeholder.com/200x150?text=${doc.document_name}`
+                                }
+                              />
+                            </Hover>
+                          </ReactHover>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500 w-1/8">
+                      <div className="text-gray-900">{doc.account_number}</div>
+                      <div className="mt-1 text-gray-500">{doc.bank_code}</div>
+                    </td>
+                    <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                      {doc.currency_code} {doc.tax_inclusive_amount}
+                    </td>
+                    <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                      {doc.prepayment}
+                    </td>
+                    <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                      {doc.currency_code} {doc.tax_inclusive_amount}
+                    </td>
+                    <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                      {doc.due_date}
+                    </td>
+                    <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                      <span className="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-700 ring-1 ring-inset ring-yellow-600/20">
+                        {doc.payment_state}
+                      </span>
+                    </td>
+                    <td className="whitespace-nowrap px-3 py-5 text-sm font-medium text-center">
+                      <a
+                        href={doc.payment_link}
+                        className="text-indigo-600 hover:text-indigo-900"
+                      >
+                        Pay
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+import { useState } from "react";
+
+export function ProfilePage() {
+  const [email, setEmail] = useState("");
+  const [isLoading, setisLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setisLoading(true);
+    setMessage("");
+
+    try {
+      const reponse = await fetch("/TODO", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+      if (reponse.ok) {
+        setMessage("Password reset link sent successfully!");
+        setEmail("");
+      } else {
+        setMessage("Failed to send the link, please try again");
+      }
+    } catch (error) {
+      setMessage("An error occurred. Please try again later.");
+    } finally {
+      setisLoading(false);
+    }
+  };
+  return (
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="px-2 py-5 sm:p-20">
+        <h3 className="text-base font-semibold leading-6 text-gray-900">
+          Update your Password
+        </h3>
+        <div className="mt-2 max-w-xl text-sm text-gray-500">
+          <p>We will send you a link for restting the password.</p>
+        </div>
+        <form onSubmit={handleSubmit} className="mt-5 sm:flex sm:items-center">
+          <div className="w-full sm:max-w-xs">
+            <label htmlFor="email" className="sr-only">
+              Email
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@example.com"
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+          </div>
+          <button
+            type="submit"
+            className="mt-3 inline-flex w-full items-center justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:ml-3 sm:mt-0 sm:w-auto"
+          >
+            Send
+          </button>
+        </form>
+        {message && (
+          <p
+            className={`mt-2 text-sm ${message.includes("successfully") ? "text-green-600" : "text-red-600"}`}
+          >
+            {message}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
+const reportWebVitals = onPerfEntry => {
+  if (onPerfEntry && onPerfEntry instanceof Function) {
+    import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
+      getCLS(onPerfEntry);
+      getFID(onPerfEntry);
+      getFCP(onPerfEntry);
+      getLCP(onPerfEntry);
+      getTTFB(onPerfEntry);
+    });
+  }
+};
+
+export default reportWebVitals;
+// jest-dom adds custom jest matchers for asserting on DOM nodes.
+// allows you to do things like:
+// expect(element).toHaveTextContent(/react/i)
+// learn more: https://github.com/testing-library/jest-dom
+import '@testing-library/jest-dom';
